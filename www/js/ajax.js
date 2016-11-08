@@ -20,6 +20,15 @@ function fetchSchedule() {
 function fetchPreGameStats(){
     $("ul").on("click", ".click-it", function(){
 
+        //EMPRTY PREDICTIONS
+        $('.predictionsdiv .winner').empty();
+        $('.predictionsdiv .strengthdiff').empty();
+        $('.predictionsdiv .over45').empty();
+        $('.predictionsdiv .over55').empty();
+        $('.predictionsdiv .stover15').empty();
+        $('.predictionsdiv .ndover15').empty();
+        $('.predictionsdiv .rdover15').empty();
+
         //EMPTY HOMETEAM BASICSTATS
         $('.hometeamdiv a').empty();
         $('.hometeaminfo .gp').empty();
@@ -72,7 +81,7 @@ function fetchPreGameStats(){
         $('.over65div .avg').empty();
         $('.over65div .diff').empty();
 
-        //INSERT PERIODSTATS
+        //EMPTY PERIODSTATS
 
         //1st PERIOD
         $('.1stover15div .homename').empty();
@@ -128,6 +137,15 @@ function fetchPreGameStats(){
         $.ajax({
             url: "http://env-4416544.fi.cloudplatform.fi/hockeyseer/nhl/schedule_"+$(this).data('menu-button')+".json"
         }).done(function(data){
+
+            //INSERT PREDICTIONS
+            $('.predictionsdiv .winner').append(data.prediction.winner);
+            $('.predictionsdiv .strengthdiff').append(numeral(data.prediction.strengthDIFF).format('0.00'));
+            $('.predictionsdiv .over45').append(numeral(data.prediction.over45).format('0.00'));
+            $('.predictionsdiv .over55').append(numeral(data.prediction.over55).format('0.00'));
+            $('.predictionsdiv .stover15').append(numeral(data.prediction.stOver15).format('0.00'));
+            $('.predictionsdiv .ndover15').append(numeral(data.prediction.ndOver15).format('0.00'));
+            $('.predictionsdiv .rdover15').append(numeral(data.prediction.rdOver15).format('0.00'));
 
             //INSERT HOMETEAM BASICSTATS
             $('.hometeamdiv a').append(data.teams[0].team);
